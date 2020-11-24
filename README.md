@@ -1,1 +1,1 @@
-# mit-swe-attendance
+# MIT SWE Attendance Tracker
