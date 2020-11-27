@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
 
 :root {
     --primary-color: #5b5378;
     --secondary-color: #dcc555;
+    --secondary-color-dark: #cfb94a;
 }
 
 * {
@@ -69,4 +69,12 @@ body {
 
 .form-btn {
     padding-bottom: 3em !important;
+}
+
+.ui.yellow.button {
+    background-color: var(--secondary-color) !important;
+}
+
+.ui.yellow.button:hover {
+    background-color: var(--secondary-color-dark) !important;
 }

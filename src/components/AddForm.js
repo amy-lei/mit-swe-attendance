@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { Form } from 'semantic-ui-react';
 import {useParams} from 'react-router-dom';
-import GeneralForm from './GeneralForm';
+import GeneralForm, {ProtectedForm} from './GeneralForm';
 
 // TODO: Refactor this somehow 
 export default function AddForm(props) {
@@ -17,6 +17,7 @@ export default function AddForm(props) {
 }
 
 function AddGeneralMemberForm(props) {
+    console.log(process.env.REACT_APP_PASSWORD);
     let [responses, setResponses] = useState({
         firstName: '',
         lastName: '',
@@ -92,12 +93,13 @@ function AddBoardMemberForm(props) {
     const options = DEPARTMENTS.map(dpt => {return {key: dpt, value: dpt, text: dpt}});
 
     return (
-        <GeneralForm 
+        <ProtectedForm
             header='Add Board Member'
             buttonLabel='Add'
             buttonIcon='plus'
             onSubmit={() => {}}
         >
+
             <Form.Group widths='equal'>
                 <Form.Input
                     name='firstName'
@@ -143,7 +145,7 @@ function AddBoardMemberForm(props) {
                     onChange={updateResponse}
                 />
             </Form.Group>
-        </GeneralForm>
+        </ProtectedForm>
     );
 }
 
@@ -179,7 +181,7 @@ function AddEventForm(props) {
     );
 
     return (
-        <GeneralForm 
+        <ProtectedForm 
             header='Add Event'
             buttonLabel='Add'
             buttonIcon='plus'
@@ -187,6 +189,7 @@ function AddEventForm(props) {
         >
             <Form.Group widths='equal'>
                 <Form.Input
+                    required
                     name='name'
                     label='Event Name'
                     type='text'
@@ -194,6 +197,7 @@ function AddEventForm(props) {
                     onChange={updateResponse}
                 />
                 <Form.Input
+                    required
                     name='password'
                     label='Event Password'
                     type='text'
@@ -205,6 +209,6 @@ function AddEventForm(props) {
                 <label>Type</label>
                 {radioButtons}
             </Form.Group>
-        </GeneralForm>
+        </ProtectedForm>
     );
 }
