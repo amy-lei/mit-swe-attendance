@@ -17,7 +17,6 @@ export default function AddForm(props) {
 }
 
 function AddGeneralMemberForm(props) {
-    console.log(process.env.REACT_APP_PASSWORD);
     let [responses, setResponses] = useState({
         firstName: '',
         lastName: '',
@@ -31,12 +30,31 @@ function AddGeneralMemberForm(props) {
         });
     }
 
+    const submit = async () => {
+        const body = {
+            Name: responses.firstName + ' ' + responses.lastName,
+            Kerberos: responses.kerb,
+            IsBoardMember: 0,
+        };
+        const res = await fetch('/api/members', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(body),
+        });
+
+        if (res.ok) {
+            console.log('Successfully added member!');
+        } else {
+            console.log('Failed to create member');
+        }
+    }
+
     return (
         <GeneralForm 
             header='Add General Member'
             buttonLabel='Add'
             buttonIcon='plus'
-            onSubmit={() => {}}
+            onSubmit={submit}
         >
             <Form.Group widths='equal'>
                 <Form.Input
@@ -90,6 +108,28 @@ function AddBoardMemberForm(props) {
         });
     }
 
+    const submit = async () => {
+        const body = {
+            Name: responses.firstName + ' ' + responses.lastName,
+            Kerberos: responses.kerb,
+            IsBoardMember: 1,
+            Position: responses.position,
+            Department: responses.department,
+        };
+
+        const res = await fetch('/api/members', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(body),
+        });
+
+        if (res.ok) {
+            console.log('Successfully added member!');
+        } else {
+            console.log('Failed to create member', res);
+        }
+    }
+
     const options = DEPARTMENTS.map(dpt => {return {key: dpt, value: dpt, text: dpt}});
 
     return (
@@ -97,9 +137,8 @@ function AddBoardMemberForm(props) {
             header='Add Board Member'
             buttonLabel='Add'
             buttonIcon='plus'
-            onSubmit={() => {}}
+            onSubmit={submit}
         >
-
             <Form.Group widths='equal'>
                 <Form.Input
                     name='firstName'
@@ -149,11 +188,11 @@ function AddBoardMemberForm(props) {
     );
 }
 
-const EVENT_TYPES = [
-    'Is a board meeting',
-    'Is an outreach event',
-    'Is a SWE recruiting event (CPW, Orientation, SWEet Week, etc.)',
-    'None of the above',
+const EVENTS = [
+    {text:'Board Meeting', value: 'BoardMeeting'},
+    {text:'Outreach Event', value: 'Outreach'},
+    {text:'SWE recruiting event (CPW, Orientation, SWEet Week, etc.)', value: 'Recruiting'},
+    {text:'None of the above', value: 'General'},
 ];
 
 function AddEventForm(props) {
@@ -170,22 +209,43 @@ function AddEventForm(props) {
         });
     }
 
-    const radioButtons = EVENT_TYPES.map(e => 
+    const radioButtons = EVENTS.map(e => 
         <Form.Radio 
             name='type'
-            label={e}
-            value={e}
-            checked={e === responses.type}
+            label={e.text}
+            value={e.value}
+            checked={e.value === responses.type}
             onChange={updateResponse}
         />
     );
+
+    const submit = async () => {
+        const body = {
+            Name: responses.name,
+            Password: responses.kerb,
+            EventType: responses.type,
+        };
+
+        const res = await fetch('/api/events', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(body),
+        });
+
+        if (res.ok) {
+            console.log('Successfully added event!');
+        } else {
+            console.log('Failed to create event', res);
+        }
+    }
+
 
     return (
         <ProtectedForm 
             header='Add Event'
             buttonLabel='Add'
             buttonIcon='plus'
-            onSubmit={() => {}}
+            onSubmit={submit}
         >
             <Form.Group widths='equal'>
                 <Form.Input

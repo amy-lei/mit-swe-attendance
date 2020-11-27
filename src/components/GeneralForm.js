@@ -13,7 +13,7 @@ export default function GeneralForm(props) {
     return (
         <Segment padded='very' className='form-container'>
             <Header content={header} size='huge' textAlign='center'/>
-            <Form onSubmit={onSubmit}>
+            <Form>
                 {children}
                 <Form.Button
                     className='form-btn'
@@ -21,6 +21,7 @@ export default function GeneralForm(props) {
                     floated='right'
                     icon={buttonIcon}
                     content={buttonLabel}
+                    onClick={onSubmit}
                 />
             </Form>
         </Segment>
