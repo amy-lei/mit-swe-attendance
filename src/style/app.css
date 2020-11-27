@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+
+:root {
+    --primary-color: #5b5378;
+    --secondary-color: #dcc555;
+}
 
 * {
     padding: 0;
@@ -12,21 +18,55 @@ body {
     width: 100vw;
 }
 
-/* NAVBAR STYLING */
-.nav.menu {
-    position: fixed;
-    height:100%;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin-left: 75px !important;
+.container {
+    position: relative;
+    height: 100vh;
+    width:80%;
+    margin:auto;
 }
 
-.item {
-    align-self: start !important;
+/* HEADER STYLING */
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem !important;
+    color: var(--primary-color);
+    margin:auto;
+}
+
+.header-logo {
+    padding-top:10px;
+    margin-right:10px;
+    width: 200px;
+    height: auto;
+}
+.header-title {
+    display: inline;
+    font-size: 80px !important;
+    text-align: center;
+    font-weight: 800;
+}
+
+/* NAVBAR STYLING */
+.nav.menu {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
 .item.active {
-    color: purple !important;
+    color: var(--secondary-color) !important;
+}
+
+/* FORM STYLING */
+.form-container {
+    width:80%;
+    margin:50px auto!important;
+    padding-bottom: 3em !important;
+}
+
+.form-btn {
+    padding-bottom: 3em !important;
 }
